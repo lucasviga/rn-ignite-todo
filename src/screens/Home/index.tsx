@@ -27,8 +27,10 @@ export function Home() {
   const [todos, setTodos] = useState<Todos[]>([])
   const [newTodoInput, setNewTodoInput] = useState('')
 
-  const totalDone = todos.filter((todos) => todos.done === true)
-  const totalInProgress = todos.filter((todos) => todos.done !== true)
+  const totalProgress = {
+    done: todos.filter((todos) => todos.done === true).length,
+    inProgress: todos.filter((todos) => todos.done !== true).length,
+  }
 
   function handleInputNewTodo(text: string) {
     setNewTodoInput(text)
@@ -72,7 +74,7 @@ export function Home() {
       />
 
       <View style={styles.todo}>
-        <Progress done={totalDone.length} inProgress={totalInProgress.length} />
+        <Progress total={totalProgress} />
 
         <FlatList
           data={todos}
